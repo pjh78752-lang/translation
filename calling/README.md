@@ -1,5 +1,22 @@
 # CALLING 검은 착신 일본판 부분 한글화
 
+## 최신: 0.0.4 대사 확장판
+
+[0.0.4 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.4-ISO-Kit.zip)
+
+[0.0.4 리소스 패치 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.4.zip)
+
+- 0.0.3 대비 635개 슬롯을 추가하여 총 1,663개 슬롯을 번역했습니다. 장 제목/이름 이미지 25개는 유지합니다.
+- 린이 바닥에서 휴대전화를 찾은 이후의 독백과 조사 문구, 학교 대화, 병원 회상, 채팅 기록, 후반 대화와 문서를 확장했습니다. 스크린샷 대사 2407·2408·2409·2413번이 포함됩니다.
+- 리소스 1818~2515 구간은 미사용 결번을 제외한 일본어 문장을 모두 번역했습니다. 다른 구간에는 일본어 문구 471개가 남아 있으며 완성판은 아닙니다. 이 수치는 이 텍스트 리소스에 대한 것으로 게임의 모든 이미지나 다른 리소스의 완역을 뜻하지 않습니다.
+- 기존 한글 666자에 새 한글 92자를 더해 글꼴 14개가 모두 758자를 지원합니다. 기존 모든 매핑과 글리프 픽셀은 보존합니다.
+
+새 폴더에 전체 압축을 풀어 `make-iso.cmd`를 실행하고 **원본 일본판 SCAJ18 ISO**로 새 ISO를 만드세요. WIT 폴더 전체를 유지하세요. WIT, 원본 ISO, 출력 경로는 `E:\Calling\original.iso`처럼 영문 경로를 사용하세요. 기존 한국어 ISO에 겹쳐 적용하지 않습니다. Windows manifest 인코딩 수정은 유지됩니다.
+
+2,516개 슬롯, 제어 문자, 기존 번역 보존, 모든 기존 글리프 픽셀/매핑, 새 한글 및 추가 문자의 대사 글꼴 지원, 압축 왕복, IPS 합성과 ZIP/XML 경로를 검사했습니다. 원본 리소스 대상 설치 실행, 전체 ISO 재생성, Windows PowerShell 및 Dolphin 게임 내 표시는 이 환경에서 검증하지 못했습니다. 미리보기는 리소스 렌더링이며 실제 게임 화면이 아닙니다.
+
+빌드 소스는 `source/v004`에 있습니다. 해당 빌더는 이번에 제공된 **0.0.2 적용본** 리소스 3개와 0.0.2 ISO 도구 ZIP을 입력으로 사용하며 해시를 검증합니다. 배포용 `install.cmd`와 ISO 도구는 **원본 일본판** 리소스를 입력으로 사용합니다.
+
 ## 0.0.3 스크린샷 대사 수정 및 Windows 설치 오류 수정
 
 [0.0.3 ISO 제작 도구 — Windows 수정본 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.3-ISO-Kit-Windows-Fix.zip)
