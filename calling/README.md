@@ -34,3 +34,11 @@
 **제작 환경에는 전체 ISO가 없어 Dolphin 게임 실행과 실제 화면을 검증하지 못했습니다.** 동봉 미리보기는 리소스를 직접 읽어 만든 것이며 게임 실행 화면이 아닙니다. 사용자 PC의 실제 표시와 배치를 확인해야 합니다.
 
 ZIP 안의 `사용방법.txt`, `manifest.json`, `FONT-LICENSE.txt`에 세부 사항이 있습니다. 0.0.1 ZIP은 이전 버전 기록으로 유지합니다.
+
+## 새 ISO에 적용하기
+
+[ISO 제작 도구 ZIP 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.2-ISO-Kit.zip)
+
+Windows용 [Wiimms ISO Tools](https://wit.wiimm.de/download.html)를 별도로 받아 전체 폴더를 압축 해제하세요. 도구 ZIP을 풀고 `make-iso.cmd`를 실행한 다음 `wit.exe`, 원본 일본판 ISO, 새 ISO 저장 경로를 선택합니다. 약 10GB 여유 공간과 NTFS/exFAT 저장 장치가 필요합니다. 원본은 보존하고 새 ISO를 만듭니다. 성공한 새 ISO는 Dolphin에서 일반 실행할 수 있습니다.
+
+기존 부분 번역 0.0.2를 넣는 도구이며 번역 범위는 늘어나지 않습니다. 비실행용 합성 Wii 이미지에서 추출·재생성·파티션 체크섬·패치 파일 재추출 해시를 검증했습니다. 실제 Calling ISO와 Windows GUI 및 게임 실행은 검증하지 못했습니다. 자세한 내용은 ZIP의 `ISO 만들기 사용방법.txt`를 확인하세요.
