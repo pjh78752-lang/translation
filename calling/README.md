@@ -1,5 +1,17 @@
 # CALLING 검은 착신 일본판 부분 한글화
 
+## 0.0.3 스크린샷 대사 수정 및 Windows 설치 오류 수정
+
+[0.0.3 ISO 제작 도구 — Windows 수정본 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.3-ISO-Kit-Windows-Fix.zip)
+
+[0.0.3 리소스 패치 — Windows 수정본 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.3-Windows-Fix.zip)
+
+2406번 대사 `携帯の持ち主……？ / 取りに来るって言ってたけど……`를 `휴대전화 주인……? / 찾으러 온다고 했는데……`로 추가 번역했습니다. 기존 0.0.2 번역은 유지하며 번역 슬롯은 1,028개입니다.
+
+초기 0.0.3의 `ConvertFrom-Json` 오류는 UTF-8 JSON을 Windows 기본 인코딩으로 읽어서 발생했습니다. Windows 수정본은 두 PowerShell 스크립트에서 UTF-8 읽기를 명시하고 manifest를 ASCII 이스케이프 JSON으로 저장합니다. 번역과 IPS 파일은 초기 0.0.3과 동일합니다. 새 폴더에 전체 압축을 풀고 `make-iso.cmd`를 실행해 보관한 **원본 일본판 SCAJ18 ISO**에서 별도 ISO를 만드세요.
+
+전체 2,516개 슬롯 중 다른 2,515개 보존, 제어 문자, 한글 매핑, IPS 합성, ZIP 무결성, UTF-8 및 한국어 기본 인코딩으로 manifest를 읽은 결과의 일치를 검사했습니다. Windows PowerShell 실제 실행, 원본 리소스 대상 설치, 전체 ISO 제작 및 게임 실행은 이번 제작 환경에서 검증하지 못했습니다.
+
 **아직 완성판이 아닙니다.** 일본판 SCAJ18용 0.0.2입니다. 전체 2,516개 텍스트 슬롯 중 1,027개와 인물/장 제목 이미지 25개를 번역했습니다.
 
 [0.0.2 ZIP 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.2.zip)
