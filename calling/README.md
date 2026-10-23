@@ -1,6 +1,22 @@
 # CALLING 검은 착신 일본판 부분 한글화
 
-## 최신: 0.0.4 대사 확장판
+## 최신: 0.0.5 문서·메뉴 번역 확장판
+
+[0.0.5 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.5-ISO-Kit.zip)
+
+[0.0.5 리소스 패치 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.5.zip)
+
+0.0.4에서 남아 있던 문서·일기·취재 노트, 인물 소개, 영상 제목, 시스템 안내, 제작진 직책/회사명/곡명 등 **354개 슬롯**을 추가하여 총 **2,017개 슬롯**을 번역했습니다. 제공된 `win_mess_jp_jp.bin`의 일본어 검색 결과에서 남는 것은 **제작진 실명 117개**와 **미사용 결번 126개**뿐입니다. 실명은 한자만으로 정확한 읽는 법을 확정할 수 없어 원문 표기를 보존하며 `source/v005/preserved-credits.json`에 기록했습니다. 이미 영어로 표기된 이름, 숫자, 빈 슬롯도 유지합니다.
+
+이 결과는 제공된 텍스트 리소스에 대한 것입니다. 기존 인물/장 제목 이미지 25개는 유지하지만, 게임의 다른 이미지나 별도 리소스까지 완역되었다는 의미는 아닙니다.
+
+새 폴더에 전체 압축을 풀어 `make-iso.cmd`를 실행하고 **원본 일본판 SCAJ18 ISO**로 새 ISO를 만드세요. WIT 폴더 전체를 유지하고, WIT·ISO·출력 경로는 `E:\Calling\original.iso`처럼 영문 경로를 사용하세요. 기존 한국어 ISO에 겹쳐 적용하지 않습니다. Windows JSON 인코딩 수정도 유지됩니다.
+
+0.0.4의 모든 기존 글리프 픽셀/매핑을 보존하면서 글꼴 14개에 한글 86자를 추가했습니다. 지원 한글은 총 844자입니다. 대사 2,516개 슬롯, 기존 번역 보존, 전화번호/퍼즐 숫자 블록과 가림 표시, 제어 문자, `<X>`/`<N>` 형식 지정자, 문자 지원, 압축 왕복, IPS 합성 및 ZIP/XML 경로를 검사했습니다. 실제 Windows PowerShell 실행, 원본 리소스 대상 설치, 전체 ISO 제작과 Dolphin 화면/줄바꿈은 제작 환경에서 검증하지 못했습니다.
+
+빌드 소스는 `source/v005`에 있습니다. `build_v005.py`는 **0.0.4 ISO 도구 ZIP**과 **0.0.2 또는 0.0.4 적용본 리소스 3개**를 입력으로 받습니다. 0.0.2 입력은 해시 확인 후 0.0.4 기준으로 올린 뒤 작업하며, 원본 입력 파일은 바꾸지 않습니다. 배포용 `install.cmd` 및 ISO 도구는 **원본 일본판**을 입력으로 사용합니다.
+
+## 0.0.4 대사 확장판
 
 [0.0.4 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.4-ISO-Kit.zip)
 

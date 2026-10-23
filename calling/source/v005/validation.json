@@ -1,0 +1,29 @@
+{
+  "total_slots": 2516,
+  "new_slots_since_v002": 990,
+  "new_slots_since_v004": 354,
+  "total_translated_slots": 2017,
+  "preserved_credit_person_names": 117,
+  "untranslated_japanese_gameplay_text_slots": 0,
+  "unused_japanese_placeholders": 126,
+  "all_other_slots_preserved": true,
+  "private_control_tokens_preserved": true,
+  "all_old_font_mappings_and_pixels_preserved": true,
+  "all_14_fonts_cover_translation_hangul": true,
+  "all_added_characters_in_dialogue_fonts": true,
+  "screenshot_ids": [
+    2407,
+    2408,
+    2409,
+    2413
+  ],
+  "no_japanese_text_outside_preserved_credit_names": true,
+  "document_phone_puzzle_blocks_preserved": true,
+  "format_placeholders_preserved": true,
+  "composed_ips_checked": true,
+  "windows_manifest_cp949_and_utf8_parsed": true,
+  "windows_powershell_tested": false,
+  "actual_original_resource_install_tested": false,
+  "full_game_iso_rebuild_tested": false,
+  "dolphin_in_game_tested": false
+}
