@@ -22,6 +22,34 @@ def apply_ips(original,patch):
     size=int.from_bytes(patch[pos+3:],'big')
     return bytes(out[:size]).ljust(size,b'\0')
 
+def normalize_ips(patch):
+    """Flatten overlapping writes and remove writes past the declared final size.
+
+    IPS may truncate after applying records, but the Windows installer allocates
+    exactly the final size. Keep every record inside that allocation.
+    """
+    assert patch[:5]==b'PATCH' and patch[-6:-3]==b'EOF'
+    target=int.from_bytes(patch[-3:],'big')
+    data=bytearray(target);mask=bytearray(target);pos=5
+    while patch[pos:pos+3]!=b'EOF':
+        offset=int.from_bytes(patch[pos:pos+3],'big')
+        size=int.from_bytes(patch[pos+3:pos+5],'big');pos+=5
+        assert size and pos+size<=len(patch)-6
+        end=min(target,offset+size)
+        if offset<end:
+            data[offset:end]=patch[pos:pos+end-offset]
+            mask[offset:end]=b'\1'*(end-offset)
+        pos+=size
+    assert len(patch)==pos+6
+    out=bytearray(b'PATCH');pos=0
+    while pos<target:
+        if not mask[pos]:pos+=1;continue
+        start=pos;pos+=1
+        while pos<target and mask[pos] and pos-start<65535:pos+=1
+        assert start!=0x454f46
+        out+=start.to_bytes(3,'big')+(pos-start).to_bytes(2,'big')+data[start:pos]
+    return bytes(out+b'EOF'+target.to_bytes(3,'big'))
+
 def compose_ips(base_patch,before,after):
     assert base_patch[-6:-3]==b'EOF';out=bytearray(base_patch[:-6]);pos=0
     while pos<len(after):
@@ -31,8 +59,9 @@ def compose_ips(base_patch,before,after):
         assert start!=0x454f46
         out+=start.to_bytes(3,'big')+(pos-start).to_bytes(2,'big')+after[start:pos]
     out+=b'EOF'+len(after).to_bytes(3,'big')
+    out=normalize_ips(out)
     assert apply_ips(before,out)==after
-    return bytes(out)
+    return out
 
 def lengths(entries):
     raw=entries[3][1];return struct.unpack('>'+str(len(raw)//2)+'H',raw)

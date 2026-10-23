@@ -1,10 +1,14 @@
 # CALLING 검은 착신 일본판 부분 한글화
 
-## 최신: 0.0.5 문서·메뉴 번역 확장판
+## 최신: 0.0.5 설치 오류 수정본
 
-[0.0.5 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.5-ISO-Kit.zip)
+[0.0.5 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.5-ISO-Kit-Installer-Fix.zip)
 
-[0.0.5 리소스 패치 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.5.zip)
+[0.0.5 리소스 패치 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.5-Installer-Fix.zip)
+
+**설치 오류 수정:** 초기 0.0.5에서 ISO 추출 뒤 발생한 `IPS record is out of bounds` 오류를 수정했습니다. 합성 IPS에 남아 있던, 최종 파일 크기를 넘는 과거 기록을 정리했습니다. 번역 및 최종 리소스 해시는 기존 0.0.5와 같습니다. 반드시 위 수정본을 새 폴더에 풀어 사용하세요.
+
+범위 초과 재현·겹침·입력 보존·반복 처리 회귀 검사 4개와 모든 실제 패치의 최종 범위/결과 해시 검사를 통과했습니다. Linux PowerShell 7.5.4에서 별도 시험 입력으로 실제 `install.ps1`을 실행해 세 파일의 출력 해시 일치와 재실행을 확인했습니다. 배포본의 원본 일본판 해시 검사는 바꾸지 않았으며, 이미 패치한 파일을 입력하면 거부하는 것도 확인했습니다. 이 시험은 원본 리소스 대상 실행이나 Windows PowerShell 5.1, 전체 ISO 재생성 검증과는 구분합니다. 상세 기록은 `source/v005/installer-validation.json`에 있습니다.
 
 0.0.4에서 남아 있던 문서·일기·취재 노트, 인물 소개, 영상 제목, 시스템 안내, 제작진 직책/회사명/곡명 등 **354개 슬롯**을 추가하여 총 **2,017개 슬롯**을 번역했습니다. 제공된 `win_mess_jp_jp.bin`의 일본어 검색 결과에서 남는 것은 **제작진 실명 117개**와 **미사용 결번 126개**뿐입니다. 실명은 한자만으로 정확한 읽는 법을 확정할 수 없어 원문 표기를 보존하며 `source/v005/preserved-credits.json`에 기록했습니다. 이미 영어로 표기된 이름, 숫자, 빈 슬롯도 유지합니다.
 

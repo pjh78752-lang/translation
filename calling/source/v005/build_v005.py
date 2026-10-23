@@ -22,6 +22,34 @@ def apply_ips(original,patch):
     size=int.from_bytes(patch[pos+3:],'big')
     return bytes(out[:size]).ljust(size,b'\0')
 
+def normalize_ips(patch):
+    """Flatten overlapping writes and remove writes past the declared final size.
+
+    IPS may truncate after applying records, but the Windows installer allocates
+    exactly the final size. Keep every record inside that allocation.
+    """
+    assert patch[:5]==b'PATCH' and patch[-6:-3]==b'EOF'
+    target=int.from_bytes(patch[-3:],'big')
+    data=bytearray(target);mask=bytearray(target);pos=5
+    while patch[pos:pos+3]!=b'EOF':
+        offset=int.from_bytes(patch[pos:pos+3],'big')
+        size=int.from_bytes(patch[pos+3:pos+5],'big');pos+=5
+        assert size and pos+size<=len(patch)-6
+        end=min(target,offset+size)
+        if offset<end:
+            data[offset:end]=patch[pos:pos+end-offset]
+            mask[offset:end]=b'\1'*(end-offset)
+        pos+=size
+    assert len(patch)==pos+6
+    out=bytearray(b'PATCH');pos=0
+    while pos<target:
+        if not mask[pos]:pos+=1;continue
+        start=pos;pos+=1
+        while pos<target and mask[pos] and pos-start<65535:pos+=1
+        assert start!=0x454f46
+        out+=start.to_bytes(3,'big')+(pos-start).to_bytes(2,'big')+data[start:pos]
+    return bytes(out+b'EOF'+target.to_bytes(3,'big'))
+
 def compose_ips(base_patch,before,after):
     assert base_patch[-6:-3]==b'EOF';out=bytearray(base_patch[:-6]);pos=0
     while pos<len(after):
@@ -31,8 +59,9 @@ def compose_ips(base_patch,before,after):
         assert start!=0x454f46
         out+=start.to_bytes(3,'big')+(pos-start).to_bytes(2,'big')+after[start:pos]
     out+=b'EOF'+len(after).to_bytes(3,'big')
+    out=normalize_ips(out)
     assert apply_ips(before,out)==after
-    return bytes(out)
+    return out
 
 def lengths(entries):
     raw=entries[3][1];return struct.unpack('>'+str(len(raw)//2)+'H',raw)
@@ -148,6 +177,12 @@ def main():
             p=base.read(prefix+name+'.ips')
             patches[name]=compose_ips(p,sources[name],data) if data!=sources[name] else p
             assert apply_ips(sources[name],patches[name])==data
+            pos=5
+            while patches[name][pos:pos+3]!=b'EOF':
+                off=int.from_bytes(patches[name][pos:pos+3],'big');size=int.from_bytes(patches[name][pos+3:pos+5],'big')
+                assert size and off+size<=len(data),(name,'installer bounds')
+                pos+=5+size
+            assert len(patches[name])==pos+6
             # Bytes not written by the old patch retain input dependence exactly.
             for fill in [0,255]:
                 surrogate=bytes([fill])*manifest['files'][name]['original_size']
@@ -160,7 +195,7 @@ def main():
         assert remaining==[row['id'] for row in preserved]
         assert all(new[row['id']]==row['original'] for row in preserved)
         batches=json.loads((root/'korean-v005-additions.json').read_text())
-        report={'total_slots':len(new),'new_slots_since_v002':len(merged)-1027,'new_slots_since_v004':len(batches),'total_translated_slots':len(merged),'preserved_credit_person_names':len(remaining),'untranslated_japanese_gameplay_text_slots':0,'unused_japanese_placeholders':sum(s=='欠番' for s in new),'all_other_slots_preserved':True,'private_control_tokens_preserved':True,'all_old_font_mappings_and_pixels_preserved':True,'all_14_fonts_cover_translation_hangul':True,'all_added_characters_in_dialogue_fonts':True,'screenshot_ids':screenshots,'no_japanese_text_outside_preserved_credit_names':all(516<=i<=726 for i in remaining),'document_phone_puzzle_blocks_preserved':True,'format_placeholders_preserved':True,'composed_ips_checked':True,'windows_manifest_cp949_and_utf8_parsed':True,'windows_powershell_tested':False,'actual_original_resource_install_tested':False,'full_game_iso_rebuild_tested':False,'dolphin_in_game_tested':False}
+        report={'total_slots':len(new),'new_slots_since_v002':len(merged)-1027,'new_slots_since_v004':len(batches),'total_translated_slots':len(merged),'preserved_credit_person_names':len(remaining),'untranslated_japanese_gameplay_text_slots':0,'unused_japanese_placeholders':sum(s=='欠番' for s in new),'all_other_slots_preserved':True,'private_control_tokens_preserved':True,'all_old_font_mappings_and_pixels_preserved':True,'all_14_fonts_cover_translation_hangul':True,'all_added_characters_in_dialogue_fonts':True,'screenshot_ids':screenshots,'no_japanese_text_outside_preserved_credit_names':all(516<=i<=726 for i in remaining),'document_phone_puzzle_blocks_preserved':True,'format_placeholders_preserved':True,'composed_ips_checked':True,'ips_records_within_final_size':True,'windows_manifest_cp949_and_utf8_parsed':True,'windows_powershell_tested':False,'actual_original_resource_install_tested':False,'full_game_iso_rebuild_tested':False,'dolphin_in_game_tested':False}
         assert report['no_japanese_text_outside_preserved_credit_names']
         manifest['validation']=report
         metadata=json.dumps(manifest,ensure_ascii=True,indent=2).encode('ascii')
@@ -189,7 +224,7 @@ def main():
                             s=s.replace('This packages the expanded partial v0.0.5 translation.','This packages the expanded partial v0.0.5 translation.')
                         data=s.encode('utf-8-sig' if rel.endswith('.ps1') else 'utf-8')
                     rel=rel.replace('0.0.4','0.0.5');bundle.writestr(prefix4+rel,data)
-                for n in ['build_v005.py','archive.py','rfnt.py','korean-v005-additions.json','preserved-credits.json']:
+                for n in ['build_v005.py','archive.py','rfnt.py','korean-v005-additions.json','preserved-credits.json','test_ips_bounds.py']:
                     bundle.writestr(prefix4+'source/'+n,(root/n).read_bytes())
                 bundle.writestr(prefix4+'source/korean-v005.json',json.dumps(merged,ensure_ascii=False,indent=2).encode())
                 for n in ['validation.json','remaining-japanese-ids.json']:

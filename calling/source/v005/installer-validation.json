@@ -1,0 +1,13 @@
+{
+  "normalized_records_within_final_size": true,
+  "output_hashes_unchanged": true,
+  "synthetic_shrink_and_overlap_regressions_passed": 4,
+  "linux_powershell_version": "7.5.4",
+  "linux_powershell_fixture_installer_passed": true,
+  "fixture_input": "Verified v0.0.2 assets; only isolated test manifest input hashes adjusted. Release original-input hashes unchanged.",
+  "linux_powershell_repeat_install_passed": true,
+  "release_rejects_patched_input": true,
+  "actual_original_resource_install_tested": false,
+  "windows_powershell_5_1_tested": false,
+  "full_iso_rebuild_tested": false
+}
