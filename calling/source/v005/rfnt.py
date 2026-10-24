@@ -84,9 +84,13 @@ def add_hangul(original,characters,fontpath):
     widthnext=struct.unpack_from('>I',result,0x24)[0]
     payload=struct.pack('>HHI',oldcount,oldcount+len(chars)-1,widthnext)+bytes([0,cw,cw])*len(chars)
     widths=append_block(b'CWDH',payload);struct.pack_into('>I',result,0x24,widths+8)
-    mapnext=struct.unpack_from('>I',result,0x28)[0]
-    payload=struct.pack('>HHHHIH',min(chars),max(chars),2,0,mapnext,len(chars))
-    payload+=b''.join(struct.pack('>HH',code,oldcount+n) for n,code in enumerate(chars))
+    # NW4R stops at the first CMAP range containing the code. Prepending a
+    # sparse Hangul range hides older syllables even when it lacks their entry.
+    # Merge all existing mappings into one sorted, terminal scan map.
+    merged=dict(oldmaps)
+    merged.update({code:oldcount+n for n,code in enumerate(chars)})
+    payload=struct.pack('>HHHHIH',min(merged),max(merged),2,0,0,len(merged))
+    payload+=b''.join(struct.pack('>HH',code,glyph) for code,glyph in sorted(merged.items()))
     cmap=append_block(b'CMAP',payload);struct.pack_into('>I',result,0x28,cmap+8)
     struct.pack_into('>I',result,8,len(result))
     struct.pack_into('>H',result,14,len(blocks)+2)

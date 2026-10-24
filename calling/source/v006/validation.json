@@ -1,0 +1,139 @@
+{
+  "version": "0.0.6-font-map-fix",
+  "fonts": [
+    {
+      "font_index": 0,
+      "mappings": 2586,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 1,
+      "mappings": 2567,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 2,
+      "mappings": 2586,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 3,
+      "mappings": 2585,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 4,
+      "mappings": 933,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 5,
+      "mappings": 2567,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 6,
+      "mappings": 1545,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 7,
+      "mappings": 1057,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 8,
+      "mappings": 1057,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 9,
+      "mappings": 1069,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 10,
+      "mappings": 1057,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 11,
+      "mappings": 1057,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 12,
+      "mappings": 1059,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    },
+    {
+      "font_index": 13,
+      "mappings": 1059,
+      "hangul_tested": 844,
+      "previously_shadowed_mappings": 738,
+      "previously_shadowed_hangul": 738,
+      "bmp_codes_checked": 65536,
+      "glyphs_and_widths_unchanged": true
+    }
+  ],
+  "old_font_sha256": "71e8934212524e067caf6c527742c4f14a1449d46f730d1af642782d6ec79855",
+  "new_font_sha256": "7d53048aae6f7cb943828e43c83e55f04a3eb7ca9a0fd22746b254fbacf61460",
+  "patch_sha256": "12379729e3bb84e594c418b71921d7fd8c5b8f2dadb7bb8edec0a64501ff7472",
+  "archive_roundtrip": true,
+  "in_game_tested": false,
+  "windows_tested": false,
+  "unchanged_translation_slots": 2017,
+  "lookup_reference": "https://github.com/doldecomp/ogws/blob/master/src/nw4r/ut/ut_ResFontBase.cpp"
+}

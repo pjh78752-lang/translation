@@ -5,9 +5,9 @@
 ## 다음 작업의 출발점
 
 - 대상: Wii 일본판 **CALLING 검은 착신**, 게임 ID **SCAJ18**, Dolphin 사용자 플레이.
-- 현재 최신 배포는 **0.0.5 설치 오류 수정본**이다. 초기 0.0.5나 0.0.4 ZIP 대신 아래 파일을 안내한다.
-- ISO 도구: [Calling-Korean-v0.0.5-ISO-Kit-Installer-Fix.zip](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.5-ISO-Kit-Installer-Fix.zip)
-- 리소스 패치: [Calling-Korean-Partial-v0.0.5-Installer-Fix.zip](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.5-Installer-Fix.zip)
+- 현재 최신 배포는 **0.0.6 한글 물음표 표시 수정본**이다. 아래 0.0.6 파일을 안내한다.
+- ISO 도구: [Calling-Korean-v0.0.6-ISO-Kit-Font-Fix.zip](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.6-ISO-Kit-Font-Fix.zip)
+- 리소스 패치: [Calling-Korean-Partial-v0.0.6-Font-Fix.zip](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.6-Font-Fix.zip)
 - 설치 수정 커밋: `8fc3d52`. 제작 소스와 검사 기록: `source/v005/`.
 - **수정본으로 사용자 PC에서 ISO 제작과 실행이 성공했다는 확인은 아직 없다.** 다음 결과를 이전 버전의 실행 확인과 혼동하지 않는다.
 
@@ -90,3 +90,14 @@ PowerShell 시험은 제공된 **0.0.2 적용본**을 사용했다. 별도의 �
 - 다음 스크린샷에서 일본어가 보이면 최신 ISO 사용 여부와 해당 문구가 이 텍스트인지 다른 이미지/리소스인지 확인한다. 이 파일의 문장이 남아 있지 않다는 검사만으로 게임 전체의 완역을 단정하지 않는다.
 - 테스트: `python calling/source/v005/test_ips_bounds.py`.
 - 상세 기록: `source/v005/validation.json`, `source/v005/installer-validation.json`.
+
+## 0.0.6 문자표 충돌 수정 — 2026-10-24
+
+- 사용자 보고: 0.0.4까지는 1~2챕터와 보내준 휴대전화 장면의 한글 표시를 확인했다. 최신 패치 적용 후에는 화면의 대사가 `?? ??? ??? ???.`처럼 표시된다. 제공 스크린샷으로 최신 ISO 부팅/장면 표시는 확인되지만 올바른 글꼴 표시는 실패했다.
+- 원인: v004/v005 `add_hangul`이 새 sparse CMAP을 선두에 붙인다. NW4R은 첫 범위 일치에서 검색을 종료하므로 새 문자표의 범위 안에 있는 기존 한글을 뒤 문자표에서 찾지 않는다. 기존 Python `mappings`/미리보기는 뒤 표까지 순회하여 문제를 놓쳤다.
+- 근거: `doldecomp/ogws`의 `src/nw4r/ut/ut_ResFontBase.cpp` `FindGlyphIndex`. 실제 v005 글꼴 14개 모두에서 기존 한글 738자의 검색 실패를 재현했다.
+- 수정: v006은 기존 매핑 전체를 단일 정렬 CMAP으로 합친다. 글리프·폭 바이트와 번역/자막 패치는 그대로다. v004/v005 재빌더도 새 글자 추가 시 전체 매핑을 단일 CMAP으로 생성하도록 수정했다.
+- 입력 font.bin은 기존 배포 IPS에서 복원했다. IPS에 없는 33바이트는 헤더 구조 및 zlib 검증으로 복원하고, 배포 manifest의 v005 font SHA-256 `71e8934212524e067caf6c527742c4f14a1449d46f730d1af642782d6ec79855`와 정확히 일치한 후에만 사용했다. 원본 게임 리소스나 ISO를 새로 받거나 배포하지 않았다.
+- 검증: 각 글꼴 BMP 65,536개 코드 및 번역의 한글 844자, 기존 매핑 전부, 글리프/폭 보존, 압축 왕복, 합성 IPS와 모든 기록의 최종 크기 범위, 두 ZIP CRC. 문자표 회귀 4개 및 IPS 회귀 4개 통과. 추가 글자 재빌드도 실제 14개 글꼴에서 매핑 보존 확인.
+- 현재 수정본의 Windows 설치·전체 원본 ISO 제작·Dolphin 화면은 제작 환경에서 미검증. 0.0.4 사용자 성공 보고를 0.0.6 실행 확인으로 바꾸어 말하지 않는다.
+- 재빌드: `python calling/source/v006/build_v006.py --font-bin /path/to/verified-v005/font.bin --repository /workspace/translation`. 원본 입력은 읽기만 한다. 출력 ZIP이 이미 있으면 덮어쓰지 않고 중단한다. 테스트: `python calling/source/v006/test_font_map_fix.py`.

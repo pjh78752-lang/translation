@@ -1,6 +1,18 @@
 # CALLING 검은 착신 일본판 부분 한글화
 
-## 최신: 0.0.5 설치 오류 수정본
+## 최신: 0.0.6 한글 물음표 표시 수정본
+
+[0.0.6 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.6-ISO-Kit-Font-Fix.zip)
+
+[0.0.6 리소스 패치 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-Partial-v0.0.6-Font-Fix.zip)
+
+**0.0.5에서 한글이 `?`로 표시되는 오류를 수정했습니다.** 새로 추가한 한글 문자표의 넓은 범위가 기존 문자표를 가리고 있었습니다. 게임의 NW4R 글꼴 검색은 처음 일치한 범위에서 글자를 찾지 못하면 뒤 문자표를 확인하지 않습니다. 기존 제작 검사는 모든 문자표를 검색하여 이 오류를 놓쳤습니다. 14개 글꼴의 문자표를 하나로 합쳐 기존 한글 738자의 검색 실패를 각 글꼴에서 수정했습니다. 번역 2,017개 슬롯, 한글 844자, 글리프 이미지와 폭, 제목 이미지 25개는 유지합니다.
+
+**새 폴더에 전체 압축을 풀고 `make-iso.cmd`로 보관한 원본 일본판 SCAJ18 ISO에서 별도 새 ISO를 만드세요.** 기존 한글 ISO에 겹쳐 적용하지 마세요. WIT 전체 폴더를 유지하고 WIT·입력·출력 경로는 영문으로 사용하세요. Dolphin에서 새 ISO를 새로 부팅하고 이전 세이브스테이트를 불러오지 마세요. 일반 저장 데이터는 보존합니다.
+
+게임과 같은 첫 범위 일치 규칙으로 각 글꼴의 BMP 65,536개 코드, 번역에 쓰인 한글 844자, 기존 전체 매핑을 검사했습니다. 글리프·폭 원본 바이트 보존, 압축 왕복, IPS 합성·범위 및 ZIP CRC도 확인했습니다. 문자표 회귀 테스트 4개와 기존 IPS 테스트 4개를 통과했습니다. **제작 환경에서 실제 Windows 설치, 원본 ISO 제작 및 Dolphin 게임 화면을 검증하지는 못했습니다.** 사용자 보고에 따르면 0.0.4까지는 1~2챕터 및 휴대전화 장면의 한글이 표시됐고, 최신 0.0.5에서 물음표 표시가 발생했습니다. 상세 검사는 `source/v006/validation.json`에 있습니다.
+
+## 이전: 0.0.5 설치 오류 수정본
 
 [0.0.5 ISO 제작 도구 다운로드](https://github.com/pjh78752-lang/translation/raw/refs/heads/main/calling/Calling-Korean-v0.0.5-ISO-Kit-Installer-Fix.zip)
 
